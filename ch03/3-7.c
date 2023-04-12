@@ -9,5 +9,6 @@ int main(void) {
         if ((i-32) % 6 == 0)            //6개씩 출력
             putchar('\n');
     }
+    putchar('\n');
     return 0;
 }

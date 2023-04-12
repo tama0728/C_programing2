@@ -18,7 +18,7 @@ int main(void) {
     int m = sizeof(s) / sizeof(int);
 
     for (i = 0; i < m; i++)
-        printf("%d ", s[i]);
+        printf("%4d ", s[i]);
     putchar('\n');
 
     shellsort(s, m);
