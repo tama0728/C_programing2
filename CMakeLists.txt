@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.24)
+project(C2 C)
+
+set(CMAKE_C_STANDARD 99)
+add_executable(ch03_3-2 ch03/3-2.c)
+add_executable(ch03_3-test ch03/3-test.c)
+add_executable(ch03_3-3 ch03/3-3.c)
+add_executable(ch03_3-4 ch03/3-4.c)
+add_executable(ch03_3-5 ch03/3-5.c)
+add_executable(ch03_3-6 ch03/3-6.c)
+add_executable(ch03_3-7 ch03/3-7.c)

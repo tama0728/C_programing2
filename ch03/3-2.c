@@ -26,28 +26,28 @@ double atof(char s[]){
     }
     return (double) val / power;
 }
-/*
-double calc(double a, char op, double b){
-    switch (op){
-        case '+':
-            return a + b;
-        case '-':
-            return a - b;
-        case '*':
-            return a * b;
-        case '/':
-            return a / b;
-        case '%':
-            return (int) a % (int) b;
-        default:
-            return 0;
-    }
-}
-*/
+
+//double calc(double a, char op, double b){
+//    switch (op){
+//        case '+':
+//            return a + b;
+//        case '-':
+//            return a - b;
+//        case '*':
+//            return a * b;
+//        case '/':
+//            return a / b;
+//        case '%':
+//            return (int) a % (int) b;
+//        default:
+//            return 0;
+//    }
+//}
+
 
 int main(){
     double a, b;
-    char op, line[MAXLINE], temp1[MAXLINE], temp2[MAXLINE];
+    char op, line[MAXLINE], temp1[MAXLINE];
     int i, j;
     while (getlin(line, MAXLINE) > 0){
         for (i = 0; line[i] != ' '; i++)
@@ -56,12 +56,12 @@ int main(){
         a = atof(temp1);
         op = line[i++];
         for (j = 0; line[i] != '\n'; i++, j++)
-            temp2[j] = line[i];
+            temp1[j] = line[i];
 
-        temp2[++j] = '\0';
-        b = atof(temp2);
-        printf("%g %c %g\n", a, op, b);
-        //printf("%g\n", calc(a, op, b));
+        temp1[++j] = '\0';
+        b = atof(temp1);
+
+//        printf("%g\n", calc(a, op, b));
     }
     return 0;
 }
