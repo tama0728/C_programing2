@@ -56,7 +56,6 @@ void calc(double a, char op, double b, int type){
         printf("%f\n", result);
     else
         printf("%d\n", (int)result);
-
 }
 
 int find(char s[]){
