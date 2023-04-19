@@ -12,3 +12,4 @@ NUM main(void) {
     OUT("Result: %d\n", SQ(c));
     return 0;
 }
+
