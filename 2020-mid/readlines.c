@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #define MAXLINE 1000
-#define ALLOCSIZE 10000
+#define ALLOCSIZE 1000
 static char allocbuf[ALLOCSIZE];
 static char *allocp = allocbuf;
 
@@ -32,7 +32,6 @@ int readlines(char lineptr[][ALLOCSIZE], int maxlines){
         else{
             line[len-1] = '\0';
             strcpy(lineptr[nlines++], line);
-//            lineptr[nlines++] = p;
         }
     return nlines;
 }
