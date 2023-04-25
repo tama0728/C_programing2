@@ -4,10 +4,6 @@
 
 #define WORDLEN_MAX 100
 #define LINE_MAX 100
-#define ALLOCSIZE 1000
-#define MAXLINE 1000
-static char allocbuf[ALLOCSIZE];
-static char *allocp = allocbuf;
 
 int getlin(char s[], int lim){
     int c, i = 0;
@@ -71,6 +67,11 @@ void shellsort(double v[], int n){
                 v[j+gap] = temp;
             }
 }
+
+
+#define ALLOCSIZE 1000
+static char allocbuf[ALLOCSIZE];
+static char *allocp = allocbuf;
 
 char *alloc(int n){
     if (allocbuf + ALLOCSIZE - allocp >= n){
