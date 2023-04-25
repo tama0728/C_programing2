@@ -19,6 +19,6 @@ int main() {
             ++nw;
         }
     }
-    printf("%d %d %d\n", n1, nw, nc);
+    printf("\t%d\t%d\t%d\n", n1, nw, nc);
     return 0;
 }
