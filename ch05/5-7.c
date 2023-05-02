@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
         numeric = 1;
 
     if ((nlines = readlines(lineptr, MAXLINES)) >= 0){
-        qsort((void **) lineptr, 0, nlines-1, (int (*)(void *, void *))(numeric ? numcmp : strcmp));
+        qsort((void **) lineptr, 0, nlines-1, (int (*)(const void *, const void *))(numeric ? numcmp : strcmp));
         writelines(lineptr, nlines);
         return 0;
     } else{
