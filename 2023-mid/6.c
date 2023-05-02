@@ -29,19 +29,14 @@ void swap(char v[][WORDLEN_MAX], int i, int j){     //2차원 배열에 들어�
 //    sort(array, last + 1, right);
 //}
 
-int static compare (const void* first, const void* second)
+int compare(const void *a, const void *b)
 {
-    if (*(char *)first > *(char *)second)
-        return 1;
-    else if (*(char *)first < *(char *)second)
-        return -1;
-    else
-        return 0;
+    return strcmp((char *)a, (char *)b);
 }
 
 int main(int argc, char *argv[]){
     int c, r = 0, n;
-    char *word[LINE_MAX];
+    char word[LINE_MAX][WORDLEN_MAX];
     while (--argc > 0 && (*++argv)[0] == '-')
         while (c = *++argv[0])
             if (c == 'r')   // r이 들어온 경우 r=1
@@ -50,7 +45,7 @@ int main(int argc, char *argv[]){
     for (int i = 0; argc-- > 0; i++)
         strcpy(word[i], *argv++); //문자열 배열로 argv에 있는 문자열 복사
     
-    qsort(word, n-1, sizeof(char *), compare); //정렬
+    qsort(word, n-1, sizeof(WORDLEN_MAX), compare); //정렬
     
     for (int j = 0; j < n; j++)
         if (r)  //r=1인 경우 뒤에서부터 출력
