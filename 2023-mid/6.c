@@ -5,14 +5,14 @@
 #define WORDLEN_MAX 100
 #define LINE_MAX 100
 
-void swap(char v[][WORDLEN_MAX], int i, int j){     //2차원 배열에 들어있는 문자열을  swap하는 함수
-    if (i==j)
-        return;
-    char temp[WORDLEN_MAX];
-    strcpy(temp, v[i]);
-    strcpy(v[i], v[j]);
-    strcpy(v[j], temp);
-}
+//void swap(char v[][WORDLEN_MAX], int i, int j){     //2차원 배열에 들어있는 문자열을  swap하는 함수
+//    if (i==j)
+//        return;
+//    char temp[WORDLEN_MAX];
+//    strcpy(temp, v[i]);
+//    strcpy(v[i], v[j]);
+//    strcpy(v[j], temp);
+//}
 
 //void sort(char array[][WORDLEN_MAX], int left, int right){ //2차원 배열의 qsort구현
 //    int i, last;
@@ -44,14 +44,14 @@ int main(int argc, char *argv[]){
     n = argc;
     for (int i = 0; argc-- > 0; i++)
         strcpy(word[i], *argv++); //문자열 배열로 argv에 있는 문자열 복사
-    
-    qsort(word, n-1, sizeof(WORDLEN_MAX), compare); //정렬
-    
-    for (int j = 0; j < n; j++)
-        if (r)  //r=1인 경우 뒤에서부터 출력
-            printf("%s ", word[n - j - 1]);
-        else
-            printf("%s ", word[j]);
+
+    qsort(word, sizeof(word)/sizeof(word[0]), sizeof(word[0]), compare); //정렬
+    if (r)
+        for (int i = 0; i < sizeof (word)/ sizeof (word[0]); ++i)
+            printf("%s ", word[n - i - 1]);
+    else
+        for (int i = 0; i < sizeof (word)/ sizeof (word[0]); ++i)
+            printf("%s ", word[i]);
     printf("\n");
     return 0;
 }
