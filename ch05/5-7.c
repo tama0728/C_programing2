@@ -46,6 +46,7 @@ void writelines(char *lineptr[], int nlines){
     while (nlines-- > 0)
         printf("%s\n", *lineptr++);
 }
+
 int cmp_str(const void *a, const void *b) {
     const char **ia = (const char **)a;
     const char **ib = (const char **)b;
@@ -67,7 +68,7 @@ int main(int argc, char *argv[]) {
     
 
     if ((nlines = readlines(lineptr, MAXLINES)) >= 0){
-        qsort(lineptr, nlines, sizeof(char *), numeric ? cmp_num : cmp_str);
+        qsort(lineptr, nlines, sizeof(char *), (int (*)(const void *, const void *)) (numeric ? cmp_num : cmp_str));
 
         printf("\nAfter sort.\n");
         writelines(lineptr, nlines);
