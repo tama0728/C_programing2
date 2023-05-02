@@ -44,12 +44,11 @@ int main(int argc, char *argv[]){
         strcpy(word[i], *argv++);
     //정렬
     sort(word, 0, n-1);
-
-    for (int j = 0; j < n; j++)
-        //r=1인 경우 뒤에서부터 출력
-        if (r)
+    if (r)
+        for (int j = 0; j < n; j++)
             printf("%s ", word[n - j - 1]);
-        else
+    else
+        for (int j = 0; j < n; j++)
             printf("%s ", word[j]);
     printf("\n");
     return 0;
