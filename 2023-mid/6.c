@@ -45,12 +45,12 @@ int main(int argc, char *argv[]){
     for (int i = 0; argc-- > 0; i++)
         strcpy(word[i], *argv++); //문자열 배열로 argv에 있는 문자열 복사
 
-    qsort(word, sizeof(word)/sizeof(word[0]), sizeof(word[0]), compare); //정렬
+    qsort(word, n, sizeof(word[0]), compare); //정렬
     if (r)
-        for (int i = 0; i < sizeof (word)/ sizeof (word[0]); ++i)
+        for (int i = 0; i < n; ++i)
             printf("%s ", word[n - i - 1]);
     else
-        for (int i = 0; i < sizeof (word)/ sizeof (word[0]); ++i)
+        for (int i = 0; i < n; ++i)
             printf("%s ", word[i]);
     printf("\n");
     return 0;
