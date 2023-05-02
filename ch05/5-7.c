@@ -6,6 +6,7 @@
 #define MAXLEN 100
 char *lineptr[MAXLINES];
 
+
 char *alloc(int n){
     char *p;
     if ((p = malloc(n)) == NULL)
@@ -45,18 +46,16 @@ void writelines(char *lineptr[], int nlines){
     while (nlines-- > 0)
         printf("%s\n", *lineptr++);
 }
+int cmp_str(const void *a, const void *b) {
+    const char **ia = (const char **)a;
+    const char **ib = (const char **)b;
+    return strcmp(*ia, *ib);
+}
 
-int numcmp(char *s1, char *s2){
-    double v1, v2;
-
-    v1 = atof(s1);
-    v2 = atof(s2);
-    if (v1 < v2)
-        return -1;
-    else if (v1 > v2)
-        return 1;
-    else
-        return 0;
+int cmp_num(const void *a, const void *b) {
+    const char **ia = (const char **)a;
+    const char **ib = (const char **)b;
+    return atoi(*ia) - atoi(*ib);
 }
 
 int main(int argc, char *argv[]) {
@@ -68,15 +67,13 @@ int main(int argc, char *argv[]) {
     
 
     if ((nlines = readlines(lineptr, MAXLINES)) >= 0){
-        qsort((void **) lineptr, nlines-1, sizeof(lineptr[0]),(int (*)(const void *, const void *))(numeric ? numcmp : strcmp));
-        
-        printf("After sort.\n");
+        qsort(lineptr, nlines, sizeof(char *), numeric ? cmp_num : cmp_str);
+
+        printf("\nAfter sort.\n");
         writelines(lineptr, nlines);
         return 0;
     } else{
         printf("error: input too big to sort\n");
         return 1;
     }
-
-    return 0;
 }
