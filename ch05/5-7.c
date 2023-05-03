@@ -16,7 +16,6 @@ char *alloc(int n){
 
 int mygetline(char s[], int lim){
     int c, i;
-
     i = 0;
     while (--lim > 0 && (c = getchar()) != EOF && c != '\n')
         s[i++] = c;
@@ -41,18 +40,18 @@ int readlines(char *lineptr[], int nlines){
         }
     return nlines;
 }
-
+//출력
 void writelines(char *lineptr[], int nlines){
     while (nlines-- > 0)
         printf("%s\n", *lineptr++);
 }
-
+//문자열 비교 함수
 int cmp_str(const void *a, const void *b) {
     const char **ia = (const char **)a;
     const char **ib = (const char **)b;
     return strcmp(*ia, *ib);
 }
-
+//숫자 비교 함수
 int cmp_num(const void *a, const void *b) {
     const char **ia = (const char **)a;
     const char **ib = (const char **)b;
@@ -62,12 +61,13 @@ int cmp_num(const void *a, const void *b) {
 int main(int argc, char *argv[]) {
     int nlines;
     int numeric = 0;
-
+    // -n 옵션을 사용하면 numeric = 1
     if (argc > 1 && strcmp(argv[1], "-n") == 0)
         numeric = 1;
     
 
     if ((nlines = readlines(lineptr, MAXLINES)) >= 0){
+        // -n 옵션을 사용하면 숫자 비교 함수를 사용
         qsort(lineptr, nlines, sizeof(char *), (int (*)(const void *, const void *)) (numeric ? cmp_num : cmp_str));
 
         printf("\nAfter sort.\n");
