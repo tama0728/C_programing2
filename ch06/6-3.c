@@ -106,7 +106,9 @@ int main(void) {
         if (isalpha(word[0]))               //첫 글자가 알파벳이면
             //binsearch()를 호출하여 keytab[]에서 찾는다.
             if ((n = binsearch(word, keytab, sizeof(keytab) / sizeof(keytab[0]))) >= 0)
+                printf("word : %s, n : %d\n", word, n);
                 keytab[n].count++;
+                
     //keytab[]에 저장된 단어들을 출력한다.
     for (n = 0; n < sizeof(keytab) / sizeof(keytab[0]); n++)
         if (keytab[n].count > 0)    //단어가 1번 이상 나왔으면
