@@ -42,9 +42,25 @@ struct key {
         {"while",    0}
 };
 
+#define BUFSIZE 100
+
+char buf[BUFSIZE];
+int bufp = 0;
+
+int getch(void) {       //버퍼에 저장된 문자가 있으면 그 문자를 반환하고, 없으면 getchar()로부터 문자를 읽어서 반환
+    return (bufp > 0) ? buf[--bufp] : getchar();
+}
+
+void ungetch(int c) {   //버퍼에 문자를 저장
+    if (bufp >= BUFSIZE)
+        printf("ungetch: too many characters\n");
+    else
+        buf[bufp++] = c;
+}
+
+//단어를 입력받는 함수
 int getword(char *word, int lim){
-    int c, getch(void);
-    void ungetch(int);
+    int c;
     char *w = word;
 
     while (isspace(c = getch()))
@@ -63,7 +79,6 @@ int getword(char *word, int lim){
     *w = '\0';
     return word[0];
 }
-
 
 int binsearch(char *word, struct key tab[], int n){
     int cond;
@@ -87,12 +102,14 @@ int main(void) {
     int n;
     char word[MAXWORD];
 
-    while (getword(word, MAXWORD) != EOF)
-        if (isalpha(word[0]))
+    while (getword(word, MAXWORD) != EOF)   //단어를 입력받아서
+        if (isalpha(word[0]))               //첫 글자가 알파벳이면
+            //binsearch()를 호출하여 keytab[]에서 찾는다.
             if ((n = binsearch(word, keytab, sizeof(keytab) / sizeof(keytab[0]))) >= 0)
                 keytab[n].count++;
+    //keytab[]에 저장된 단어들을 출력한다.
     for (n = 0; n < sizeof(keytab) / sizeof(keytab[0]); n++)
-        if (keytab[n].count > 0)
+        if (keytab[n].count > 0)    //단어가 1번 이상 나왔으면
             printf("%4d %s\n", keytab[n].count, keytab[n].word);
 
     return 0;
