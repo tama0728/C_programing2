@@ -12,11 +12,8 @@ int mstrcmp(const void *a, const void *b) {
 }
 
 int main(void) {
-    char *str = "\n";
-    char *ptr = strtok(str, "\n");
-    while (ptr != NULL) {
-        printf("%s", ptr);
-        ptr = strtok(NULL, "\n");
-    }
+    FILE *fp = fopen("/Users/gimdong-yun/Desktop/SynologyDrive/F/ShortCut/Uni/2023/1학기/C프로그래밍2/C2/project/p1/text.txt", "a");
+    fprintf(fp, "hello world\n");
+    fclose(fp);
     return 0;
 }
