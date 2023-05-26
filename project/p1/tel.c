@@ -4,8 +4,10 @@
 #include <ctype.h>
 
 #define MAX 1024
-#define data "/Users/gimdong-yun/Desktop/SynologyDrive/F/ShortCut/Uni/2023/1학기/C프로그래밍2/C2/project/p1/data.txt"
-#define help "/Users/gimdong-yun/Desktop/SynologyDrive/F/ShortCut/Uni/2023/1학기/C프로그래밍2/C2/project/p1/help.txt"
+//#define data "/Users/gimdong-yun/Desktop/SynologyDrive/F/ShortCut/Uni/2023/1학기/C프로그래밍2/C2/project/p1/data.txt"
+//#define help "/Users/gimdong-yun/Desktop/SynologyDrive/F/ShortCut/Uni/2023/1학기/C프로그래밍2/C2/project/p1/help.txt"
+#define data "data.txt"
+#define help "help.txt"
 
 typedef struct Tel{
     char name[30];
@@ -17,9 +19,9 @@ typedef struct Tel{
 void allFree(Tel *head) {
     Tel *p = head;
     while (p != NULL) {
-        Tel *q = p;
-        p = p->next;
-        free(q);
+        Tel *q = p->next;
+        free(p);
+        p = q;
     }
 }
 
@@ -85,8 +87,6 @@ void searchTel(struct Tel *head, char *temp){
         printf("no match found.\n");
     else
         printf("match found.\n");
-    allFree(head);
-    exit(0);
 }
 
 void add(char *name, char *tel, char *memo) {
@@ -101,7 +101,6 @@ void add(char *name, char *tel, char *memo) {
     fprintf(fp, "%s:%s:%s\n", name, tel, memo);
     fclose(fp);
     printf("add completed.\n");
-    exit(0);
 }
 
 void save(struct Tel *head) {
@@ -113,8 +112,6 @@ void save(struct Tel *head) {
     }
     fclose(fp);
     printf("save completed.\n");
-    allFree(head);
-    exit(0);
 }
 
 void delete(struct Tel *head, char *key) {
@@ -132,6 +129,7 @@ void delete(struct Tel *head, char *key) {
 
     if (n == 1) {
         printf("no match found.\n");
+        allFree(head);
         exit(0);
         }
     printf("which one? ");
@@ -139,6 +137,7 @@ void delete(struct Tel *head, char *key) {
 
     if (!isdigit(num) || num - '0' > n - 1 || num - '0' < 1) {
         printf("wrong input.\n");
+        allFree(head);
         exit(0);
     }
     num = tmep[num - '1'];
@@ -166,13 +165,10 @@ void printAll(Tel *head) {
         p = p->next;
         n++;
     }
-    allFree(head);
-    exit(0);
 }
 
 int main(int argc, char *argv[]) {
     struct Tel *head = NULL;
-
     // 옵션과 문자가 없는 경우 help.txt 출력
     if (--argc > 0) {
         char buf[MAX];
@@ -195,16 +191,17 @@ int main(int argc, char *argv[]) {
     if (--argc > 0 && (*argv)[0] == '-') {
         switch ((*argv)[1]) {
             case 'a':
-                head = init(head);
                 add(*++argv, *++argv, *++argv);
                 break;
             case 'd':
                 head = init(head);
                 delete(head, *++argv);
+                allFree(head);
                 break;
             case 'l':
                 head = init(head);
                 printAll(head);
+                allFree(head);
                 break;
             default:
                 printf("wrong option.\n");
@@ -214,4 +211,5 @@ int main(int argc, char *argv[]) {
         printf("wrong option.\n");
         exit(1);
     }
+    return 0;
 }
