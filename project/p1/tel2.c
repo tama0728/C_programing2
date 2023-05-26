@@ -36,15 +36,15 @@ Tel *insert(Tel *head, char *name, char *tel, char *memo) {
     return head;
 }
 
-Tel *init(Tel *head){
+Tel *init(Tel *head) {
     FILE *fp = fopen(data, "r");
     if (fp == NULL) {
         printf("파일을 열 수 없습니다.\n");
         exit(1);
     }
-    char buf[MAX], name[30], tel[20], memo[40];
+    char buf[MAX];
     while (fgets(buf, MAX, fp) != NULL){
-        char *ptr = strtok(buf, ":\n");
+        char name[30] = {0}, tel[20] = {0}, memo[40] = {0}, *ptr = strtok(buf, ":\n");
         int i = 0;
         while (ptr != NULL) {
             if (i == 0)
@@ -159,7 +159,7 @@ int main(int argc, char *argv[]) {
     struct Tel *head = NULL;
 
     // 옵션과 문자가 없는 경우 help.txt 출력
-    if (argc == 1) {
+    if (--argc > 0) {
         char buf[MAX];
         FILE *fp = fopen(help, "r");
         while (fgets(buf, MAX, fp) != NULL)
@@ -167,35 +167,37 @@ int main(int argc, char *argv[]) {
         fclose(fp);
         exit(0);
     }
+    head = init(head);
+    printAll(head);
 
     //옵션이 없고 문자만 있는 경우 search 실행
-    if ((*++argv)[0] != '-') {
-        head = init(head);
-        searchTel(head, *argv);
-        exit(0);
-    }
+//    if ((*++argv)[0] != '-') {
+//        head = init(head);
+//        searchTel(head, *argv);
+//        exit(0);
+//    }
 
     //옵션과 문자가 있는 경우
-    if ((*argv)[0] == '-') {
-        switch ((*argv)[1]) {
-            case 'a':
-                head = init(head);
-                add(*++argv, *++argv, *++argv);
-                break;
-            case 'd':
-                head = init(head);
-                delete(head, *++argv);
-                break;
-            case 'l':
-                head = init(head);
-                printAll(head);
-                break;
-            default:
-                printf("wrong option.\n");
-                exit(0);
-        }
-    } else {
-        printf("wrong option.\n");
-        exit(1);
-    }
+//    if (--argc > 0 && (*argv)[0] == '-') {
+//        switch ((*argv)[1]) {
+//            case 'a':
+//                head = init(head);
+//                add(*++argv, *++argv, *++argv);
+//                break;
+//            case 'd':
+//                head = init(head);
+//                delete(head, *++argv);
+//                break;
+//            case 'l':
+//                head = init(head);
+//                printAll(head);
+//                break;
+//            default:
+//                printf("wrong option.\n");
+//                exit(0);
+//        }
+//    } else {
+//        printf("wrong option.\n");
+//        exit(1);
+//    }
 }
