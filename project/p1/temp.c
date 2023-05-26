@@ -12,6 +12,11 @@ int mstrcmp(const void *a, const void *b) {
 }
 
 int main(void) {
-    printf("%d\n", isdigit('1'));
+    char *str = "\n";
+    char *ptr = strtok(str, "\n");
+    while (ptr != NULL) {
+        printf("%s", ptr);
+        ptr = strtok(NULL, "\n");
+    }
     return 0;
 }

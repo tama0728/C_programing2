@@ -14,6 +14,15 @@ typedef struct Tel{
     struct Tel *next;
 }Tel;
 
+void allFree(Tel *head) {
+    Tel *p = head;
+    while (p != NULL) {
+        Tel *q = p;
+        p = p->next;
+        free(q);
+    }
+}
+
 Tel *insert(Tel *head, char *name, char *tel, char *memo) {
     Tel *p = head;
     if (p == NULL) {
@@ -76,6 +85,8 @@ void searchTel(struct Tel *head, char *temp){
         printf("no match found.\n");
     else
         printf("match found.\n");
+    allFree(head);
+    exit(0);
 }
 
 void add(char *name, char *tel, char *memo) {
@@ -101,6 +112,8 @@ void save(struct Tel *head) {
         p = p->next;
     }
     fclose(fp);
+    printf("save completed.\n");
+    allFree(head);
     exit(0);
 }
 
@@ -153,6 +166,8 @@ void printAll(Tel *head) {
         p = p->next;
         n++;
     }
+    allFree(head);
+    exit(0);
 }
 
 int main(int argc, char *argv[]) {
@@ -172,6 +187,7 @@ int main(int argc, char *argv[]) {
     if ((*++argv)[0] != '-') {
         head = init(head);
         searchTel(head, *argv);
+        allFree(head);
         exit(0);
     }
 
