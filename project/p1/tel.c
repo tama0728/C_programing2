@@ -4,8 +4,6 @@
 #include <ctype.h>
 
 #define MAX 1024
-//#define data "/Users/gimdong-yun/Desktop/SynologyDrive/F/ShortCut/Uni/2023/1학기/C프로그래밍2/C2/project/p1/data.txt"
-//#define help "/Users/gimdong-yun/Desktop/SynologyDrive/F/ShortCut/Uni/2023/1학기/C프로그래밍2/C2/project/p1/help.txt"
 #define data "data.txt"
 #define help "help.txt"
 
@@ -48,7 +46,7 @@ Tel *insert(Tel *head, char *name, char *tel, char *memo) {
 }
 
 Tel *init(Tel *head) {
-    FILE *fp = fopen(data, "r");
+    FILE *fp = fopen(data, "rt");
     if (fp == NULL) {
         printf("파일을 열 수 없습니다.\n");
         exit(1);
@@ -98,7 +96,7 @@ void add(char *name, char *tel, char *memo) {
     }
 
     FILE *fp = fopen(data, "a");
-    fprintf(fp, "%s:%s:%s\n", name, tel, memo);
+    fprintf(fp, "%s:%s:%s", name, tel, memo);
     fclose(fp);
     printf("add completed.\n");
 }
@@ -170,7 +168,7 @@ void printAll(Tel *head) {
 int main(int argc, char *argv[]) {
     struct Tel *head = NULL;
     // 옵션과 문자가 없는 경우 help.txt 출력
-    if (--argc > 0) {
+    if (--argc == 0) {
         char buf[MAX];
         FILE *fp = fopen(help, "r");
         while (fgets(buf, MAX, fp) != NULL)
@@ -188,7 +186,7 @@ int main(int argc, char *argv[]) {
     }
 
     //옵션과 문자가 있는 경우
-    if (--argc > 0 && (*argv)[0] == '-') {
+    if (argc > 0 && (*argv)[0] == '-') {
         switch ((*argv)[1]) {
             case 'a':
                 add(*++argv, *++argv, *++argv);
