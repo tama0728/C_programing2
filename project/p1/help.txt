@@ -5,9 +5,9 @@ SYNOPSIS
         tel [OPTION]... [STRING]...
 
 DESCRIPTION
-        tel is a simple phone book program. It can search, add, delete, and list phone numbers.
-        if no option and string are given, tel will display manual.
-        if no option is given, tel will search for the given string in the phone book.
+        Tel is a simple phone book program. It can search, add, delete, and list phone numbers.
+        If no option and string are given, tel will display manual.
+        If no option is given, tel will search for the given string in the phone book.
 
         -a
                 add a phone number

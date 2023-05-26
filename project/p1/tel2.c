@@ -4,7 +4,7 @@
 #include <ctype.h>
 
 #define MAX 1024
-const char *path= "/Users/gimdong-yun/Desktop/SynologyDrive/F/ShortCut/Uni/2023/1학기/C프로그래밍2/C2/project/p1/data.txt";
+#define path = "/Users/gimdong-yun/Desktop/SynologyDrive/F/ShortCut/Uni/2023/1학기/C프로그래밍2/C2/project/p1/data.txt"
 
 
 typedef struct Tel{
