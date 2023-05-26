@@ -167,37 +167,35 @@ int main(int argc, char *argv[]) {
         fclose(fp);
         exit(0);
     }
-    head = init(head);
-    printAll(head);
 
     //옵션이 없고 문자만 있는 경우 search 실행
-//    if ((*++argv)[0] != '-') {
-//        head = init(head);
-//        searchTel(head, *argv);
-//        exit(0);
-//    }
+    if ((*++argv)[0] != '-') {
+        head = init(head);
+        searchTel(head, *argv);
+        exit(0);
+    }
 
     //옵션과 문자가 있는 경우
-//    if (--argc > 0 && (*argv)[0] == '-') {
-//        switch ((*argv)[1]) {
-//            case 'a':
-//                head = init(head);
-//                add(*++argv, *++argv, *++argv);
-//                break;
-//            case 'd':
-//                head = init(head);
-//                delete(head, *++argv);
-//                break;
-//            case 'l':
-//                head = init(head);
-//                printAll(head);
-//                break;
-//            default:
-//                printf("wrong option.\n");
-//                exit(0);
-//        }
-//    } else {
-//        printf("wrong option.\n");
-//        exit(1);
-//    }
+    if (--argc > 0 && (*argv)[0] == '-') {
+        switch ((*argv)[1]) {
+            case 'a':
+                head = init(head);
+                add(*++argv, *++argv, *++argv);
+                break;
+            case 'd':
+                head = init(head);
+                delete(head, *++argv);
+                break;
+            case 'l':
+                head = init(head);
+                printAll(head);
+                break;
+            default:
+                printf("wrong option.\n");
+                exit(0);
+        }
+    } else {
+        printf("wrong option.\n");
+        exit(1);
+    }
 }
