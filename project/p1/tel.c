@@ -156,13 +156,13 @@ void delete(struct Tel *head, char *key) {
         exit(0);
     }
     num = tmep[num - '1'];
-    //삭제할 노드가 head 노드이면 head를 다음 노드로 변경
+    //num이 0이면  head를 다음 노드로 변경
+    p == head;
     if (num == 0) {
         head = head->next;
         free(p);
     } else {
         //삭제할 노드의 이전 노드까지 이동
-        p = head;
         for (int j = 0; j < num-1; ++j)
             p = p->next;
         struct Tel *temp = p->next;
