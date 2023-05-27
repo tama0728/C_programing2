@@ -25,18 +25,23 @@ void allFree(Tel *head) {
     }
 }
 
+Tel *firstAdd(Tel *head, char *name, char *tel, char *memo){
+    Tel *p = (Tel *) malloc(sizeof(Tel));
+    strcpy(p->name, name);
+    strcpy(p->tel, tel);
+    strcpy(p->memo, memo);
+    p->next = head;
+    head = p;
+    return head;
+}
+
 //리스트에 오름차순으로 추가
 Tel *insert(Tel *head, char *name, char *tel, char *memo) {
     Tel *p = head;
-    //리스트가 비어있을 때
-    if (p == NULL) {
-        head = (Tel *) malloc(sizeof(Tel));
-        strcpy(head->name, name);
-        strcpy(head->tel, tel);
-        strcpy(head->memo, memo);
-        head->next = NULL;
-        return head;
-    }
+    //리스트가 비었거나 첫 번째 노드보다 작을 때
+    if (p == NULL || strcmp(name, head->name) < 0)
+        return firstAdd(head, name, tel, memo);
+
     //리스트가 비어있지 않을 때 오름차순으로 추가
     while (p->next != NULL && strcmp(name, p->next->name) > 0) {
         p = p->next;
