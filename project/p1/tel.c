@@ -125,6 +125,7 @@ void save(struct Tel *head) {
         p = p->next;
     }
     fclose(fp);
+    allFree(head);
 }
 
 //리스트에서 삭제 후 data.txt에 저장
@@ -156,18 +157,21 @@ void delete(struct Tel *head, char *key) {
         exit(0);
     }
     num = tmep[num - '1'];
-    //num이 0이면  head를 다음 노드로 변경
-    p == head;
-    if (num == 0) {
+    p = head;
+    //삭제할 노드까지 이동
+    for (int j = 0; j < num; ++j)
+        p = p->next;
+    //삭제할 노드가 head 노드이면 head를 다음 노드로 변경
+    if (p == head) {
         head = head->next;
         free(p);
     } else {
-        //삭제할 노드의 이전 노드까지 이동
-        for (int j = 0; j < num-1; ++j)
-            p = p->next;
-        struct Tel *temp = p->next;
-        p->next = p->next->next;
-        free(temp);
+        //삭제할 노드의 이전 노드를 다음 노드로 변경
+        struct Tel *q = head;
+        while (q->next != p)
+            q = q->next;
+        q->next = p->next;
+        free(p);
     }
     printf("delete completed.\n");
     //data.txt에 저장
