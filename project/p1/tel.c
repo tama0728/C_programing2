@@ -192,7 +192,6 @@ void printAll(Tel *head) {
 
 int main(int argc, char *argv[]) {
     struct Tel *head = NULL;
-
     // 옵션과 문자가 없는 경우 help.txt 출력
     if (--argc == 0) {
         char buf[MAX];
