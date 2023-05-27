@@ -100,6 +100,7 @@ void searchTel(struct Tel *head, char *temp){
 
 //data.txt에 추가
 void add(char *name, char *tel, char *memo) {
+    printf("%s %s %s\n", name, tel, memo);
     printf("add? [Y/N]: ");
     int c = getchar();
     //Y 또는 y가 아니면 add 취소
@@ -109,7 +110,7 @@ void add(char *name, char *tel, char *memo) {
     }
     //data.txt의 가장 뒤에 추가
     FILE *fp = fopen(data, "at");
-    fprintf(fp, "%s:%s:%s", name, tel, memo);
+    fprintf(fp, "%s:%s:%s\n", name, tel, memo);
     fclose(fp);
     printf("add completed.\n");
 }
@@ -199,7 +200,6 @@ int main(int argc, char *argv[]) {
         fclose(fp);
         exit(0);
     }
-
     //옵션이 없고 문자만 있는 경우 search 실행
     if ((*++argv)[0] != '-') {
         head = init(head);
@@ -207,7 +207,6 @@ int main(int argc, char *argv[]) {
         allFree(head);
         exit(0);
     }
-
     //옵션과 문자가 있는 경우
     if (argc > 0 && (*argv)[0] == '-') {
         switch ((*argv)[1]) {
