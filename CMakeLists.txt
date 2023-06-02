@@ -45,6 +45,11 @@ add_executable(ch0B_sortbin ch0B/sortbin.c)
 add_executable(ch0B_sortbinstr ch0B/sortbinstr.c)
 add_executable(ch0B_temp ch0B/temp.c)
 add_executable(project_p1_tel project/p1/tel2.c)
-add_executable(project_p1_temp project/p1/temp.c)
 add_executable(project_p1_tel2 project/p1/tel.c)
 add_executable(project_p1_telTree project/p1/telTree.c)
+
+find_package(Curses REQUIRED)
+include_directories(${CURSES_INCLUDE_DIR})
+add_executable(ncurses_hello_world ncurses/hello_world.c)
+
+target_link_libraries(ncurses_hello_world ${CURSES_LIBRARIES})
