@@ -51,5 +51,7 @@ add_executable(project_p1_telTree project/p1/telTree.c)
 find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIR})
 add_executable(ncurses_hello_world ncurses/hello_world.c)
+add_executable(ncurses_form ncurses/form.c)
 
 target_link_libraries(ncurses_hello_world ${CURSES_LIBRARIES})
+add_executable(project_p2_tel-nurses project/p2/tel-nurses.c)
