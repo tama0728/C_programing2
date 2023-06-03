@@ -1,0 +1,23 @@
+NAME
+        tel - search, add, delete, list phone numbers
+
+SYNOPSIS
+        tel [OPTION]... [STRING]...
+
+DESCRIPTION
+        Tel is a simple phone book program. It can search, add, delete, and list phone numbers.
+        If no option and string are given, tel will display manual.
+        If no option is given, tel will search for the given string in the phone book.
+
+        -a
+                add a phone number
+
+        -d
+                delete a phone number
+
+        -l
+                list all phone numbers
+
+        All options operate independent and do not mix.
+
+press any key to go back to the main menu...김윤
