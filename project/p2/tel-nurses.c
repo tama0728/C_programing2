@@ -140,6 +140,9 @@ void helpPrint(int xMax) {
 int main(void) {
     setlocale(LC_CTYPE, "ko_KR.utf8");
 
+    struct Tel *head = NULL;
+    head = init(head);
+
     initscr();
     cbreak();
     noecho();
@@ -147,8 +150,7 @@ int main(void) {
 
     int yMax, xMax;
     getmaxyx(stdscr, yMax, xMax);
-    struct Tel *head = NULL;
-    head = init(head);
+
 
     int x = 15, y = 20;
     WINDOW *menuwin = newwin(x, y, 0, xMax/2-10);
