@@ -7,9 +7,10 @@
 #include <stdlib.h>
 #include <ncurses.h>
 #include <form.h>
+#include <locale.h>
 
 #define MAX 1024
-#define data "/Users/gimdong-yun/Desktop/SynologyDrive/F/ShortCut/Uni/2023/1학기/C프로그래밍2/C2/project/p2/data1.txt"
+#define data "/Users/gimdong-yun/Desktop/SynologyDrive/F/ShortCut/Uni/2023/1학기/C프로그래밍2/C2/project/p2/data.txt"
 #define help "/Users/gimdong-yun/Desktop/SynologyDrive/F/ShortCut/Uni/2023/1학기/C프로그래밍2/C2/project/p2/help.txt"
 char *menu[] = {"help", "list", "search", "add", "delete", "exit"};
 
@@ -62,7 +63,7 @@ Tel *insert(Tel *head, char *name, char *tel, char *memo) {
 
 //data.txt 에서 파일 읽어오기
 Tel *init(Tel *head) {
-    FILE *fp = fopen(data, "rt, ccs=EUC-KR");
+    FILE *fp = fopen(data, "r");
     if (fp == NULL) {
         printf("파일을 열 수 없습니다.\n");
         exit(1);
@@ -90,38 +91,54 @@ Tel *init(Tel *head) {
 }
 
 //리스트 전체 출력
-void printAll(Tel *head) {
+void printAll(Tel *head, int xMax) {
     Tel *p = head;
     int n = 1, j, max = 0;
-
-    mvwprintw(stdscr, 1, 1, "%3s  %-10s %-15s\t%s", "No", "Name", "Tel", "Memo");
+    mvwprintw(stdscr, 1, xMax/3, "%3s  %-10s %-15s\t%s", "No", "Name", "Tel", "Memo");
     //리스트의 끝까지 이동하면서 출력
     while (p != NULL) {
-        mvwprintw(stdscr, n+1, 1, "%3d  %-10s %-15s\t%s", n, p->name, p->tel, p->memo);
-        if (max < (j = strlen(p->name) + strlen(p->tel) + strlen(p->memo)))
-            max = j;
+        mvwprintw(stdscr, n+1, xMax/3, "%3d  %-10s %-15s\t%s", n, p->name, p->tel, p->memo);
+
         p = p->next;
         n++;
     }
-    WINDOW *list = newwin(n+2, max+30, 0, 0);
-    box(list, 0, 0);
-    wrefresh(list);
+    refresh();
     getch();
-    werase(list);
-    delwin(list);
+    werase(stdscr);
 }
 
-void helpPrint() {
+//key 값을 받아 해당 노드 찾기
+void searchTel(struct Tel *head, char *temp){
+    struct Tel *p = head;
+    int n = 1;
+    while (p != NULL) {
+        //name, tel, memo에 key 값이 포함되어 있으면 출력
+        if (strstr(p->name, temp) != NULL || strstr(p->tel, temp) != NULL || strstr(p->memo, temp) != NULL) {
+            printf("%d %s %s %s\n",n, p->name, p->tel, p->memo);
+            n++;
+        }
+        p = p->next;
+    }
+    //key 값이 없으면 no match found 출력
+    if (n == 1)
+        printf("no match found.\n");
+    else
+        printf("match found.\n");
+}
+
+void helpPrint(int xMax) {
     FILE *fp =  fopen(help, "r");
     char buf[MAX];
     int i = 0;
     while (fgets(buf, MAX, fp) != NULL)
-        mvprintw(i++, 0, "%s", buf);
+        mvprintw(i++, xMax / 3, "%s", buf);
     fclose(fp);
     getch();
+    werase(stdscr);
 }
 
 int main(void) {
+    setlocale(LC_CTYPE, "ko_KR.utf8");
 
     initscr();
     cbreak();
@@ -133,17 +150,25 @@ int main(void) {
     struct Tel *head = NULL;
     head = init(head);
 
-    WINDOW *menuwin = newwin(8, 20, 2, 5);
+    int x = 15, y = 20;
+    WINDOW *menuwin = newwin(x, y, 0, xMax/2-10);
     keypad(menuwin, true);
+
+    start_color();
+    short COLOR_GRAY = 0;
+    init_color(COLOR_GRAY, 200, 200, 200);
+    init_pair(1, COLOR_WHITE, COLOR_GRAY);
+    attron(COLOR_PAIR(1));
 
     int choice, highlight = 0, max = sizeof(menu)/ sizeof(menu[0]);
 
     while (1){
+        mvwprintw(menuwin, 1, 1, "전화번호부");
         box(menuwin, 0, 0);
         for (int i = 0; i < max; ++i) {
             if (i == highlight)
                 wattron(menuwin, A_REVERSE);
-            mvwprintw(menuwin, i+1, 1, menu[i]);
+            mvwprintw(menuwin, 3 + i, 1, menu[i]);
             wattroff(menuwin, A_REVERSE);
         }
         choice = wgetch(menuwin);
@@ -169,15 +194,18 @@ int main(void) {
             switch (highlight) {
                 case 0:
                     werase(menuwin);
-                    helpPrint();
-                    werase(stdscr);
+                    wrefresh(menuwin);
+                    helpPrint(xMax);
                     break;
                 case 1:
                     werase(menuwin);
-                    printAll(head);
-                    werase(stdscr);
+                    wrefresh(menuwin);
+                    printAll(head, xMax);
                     break;
                 case 2:
+                    werase(menuwin);
+
+                    werase(stdscr);
                     break;
                 case 3:
                     mvprintw(0, 0, "%s", menu[highlight]);

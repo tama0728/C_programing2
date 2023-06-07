@@ -20,4 +20,4 @@ DESCRIPTION
 
         All options operate independent and do not mix.
 
-press any key to go back to the main menu...김윤
+press any key to go back to the main menu...

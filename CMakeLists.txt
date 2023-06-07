@@ -53,7 +53,10 @@ include_directories(${CURSES_INCLUDE_DIR})
 add_executable(ncurses_hello_world ncurses/hello_world.c)
 add_executable(ncurses_form ncurses/form.c)
 add_executable(project_p2_tel-nurses project/p2/tel-nurses.c)
+add_executable(project_p2_form2 project/p2/form2.c)
 
 target_link_libraries(ncurses_hello_world ${CURSES_LIBRARIES})
 target_link_libraries(ncurses_form ${CURSES_LIBRARIES})
 target_link_libraries(project_p2_tel-nurses ${CURSES_LIBRARIES})
+target_link_libraries(project_p2_form2 ${CURSES_LIBRARIES})
+
