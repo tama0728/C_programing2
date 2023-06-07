@@ -124,7 +124,7 @@ void searchTel(struct Tel *head){
     while (p != NULL) {
         //name, tel, memo에 key 값이 포함되어 있으면 출력
         if (strstr(p->name, key) != NULL || strstr(p->tel, key) != NULL || strstr(p->memo, key) != NULL) {
-            mvprintw(n, 0,"%d %s %s %s\n",n, p->name, p->tel, p->memo);
+            mvprintw(n, 0,"%3d  %-10s %-15s\t%s\n",n, p->name, p->tel, p->memo);
             n++;
         }
         p = p->next;
