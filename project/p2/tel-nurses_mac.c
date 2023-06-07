@@ -111,8 +111,8 @@ void printAll(Tel *head) {
 //key 값을 받아 해당 노드 찾기
 void searchTel(struct Tel *head){
     char key[40] = {0};
-    wprintw(stdscr, "please enter key: ");
-    wscanw(stdscr, " %s", key);
+    printw("please enter key: ");
+    getstr(key);
     if (strlen(key) == 0) {
         wprintw(stdscr, "\nNo key entered.\n\npress any key to continue.");
         getch();
@@ -152,11 +152,11 @@ void helpPrint() {
 Tel *add(Tel *head) {
     char name[30] = {0}, tel[20] = {0}, memo[40] = {0};
     printw("name: ");
-    scanw(" %s", name);
+    getstr(name);
     printw("tel: ");
-    scanw(" %s", tel);
+    getstr(tel);
     printw("memo: ");
-    scanw(" %s", memo);
+    getstr(memo);
     refresh();
     if (strlen(name) == 0 || strlen(tel) == 0) {
         printw("\nNo name or tel entered.\n\npress any key to continue.");
@@ -195,8 +195,9 @@ void save(struct Tel *head) {
 //리스트에서 삭제
 Tel *delete(struct Tel *head) {
     char key[40] = {0};
-    wprintw(stdscr, "please enter key: ");
-    wscanw(stdscr, " %s", key);
+    printw("please enter key: ");
+    getstr(key);
+
     if (strlen(key) == 0) {
         wprintw(stdscr, "\nNo key entered.\n\npress any key to continue.");
         getch();
@@ -327,21 +328,27 @@ int main(void) {
                     printAll(head);
                     break;
                 case 2:
+                    curs_set(1);
                     echo();
                     searchTel(head);
                     werase(stdscr);
+                    curs_set(0);
                     noecho();
                     break;
                 case 3:
+                    curs_set(1);
                     echo();
                     head = add(head);
                     werase(stdscr);
+                    curs_set(0);
                     noecho();
                     break;
                 case 4:
+                    curs_set(1);
                     echo();
                     head = delete(head);
                     werase(stdscr);
+                    curs_set(0);
                     noecho();
                     break;
                 default:
