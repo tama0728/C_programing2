@@ -293,7 +293,7 @@ int main(void) {
     int choice, highlight = 0, max = sizeof(menu)/ sizeof(menu[0]);
 
     while (1){
-        mvwprintw(menuwin, 1, 1, "telbook");
+        mvwprintw(menuwin, 1, 1, "전화번호부");
         box(menuwin, 0, 0);
         for (int i = 0; i < max; ++i) {
             if (i == highlight)
