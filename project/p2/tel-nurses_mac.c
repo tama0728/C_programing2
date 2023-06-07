@@ -110,9 +110,15 @@ void printAll(Tel *head) {
 
 //key 값을 받아 해당 노드 찾기
 void searchTel(struct Tel *head){
-    char key[40];
+    char key[40] = {0};
     wprintw(stdscr, "please enter key: ");
     wscanw(stdscr, " %s", key);
+    if (strlen(key) == 0) {
+        wprintw(stdscr, "\nNo key entered.\n\npress any key to continue.");
+        getch();
+        werase(stdscr);
+        return;
+    }
     struct Tel *p = head;
     int n = 1;
     while (p != NULL) {
@@ -125,9 +131,10 @@ void searchTel(struct Tel *head){
     }
     //key 값이 없으면 no match found 출력
     if (n == 1)
-        mvprintw(n+1, 0, "no match found.\n\npress any key to continue.");
+        mvprintw(n+1, 0, "\nno match found.\n\npress any key to continue.");
     else
         mvprintw(n+1, 0, "match found.\n\npress any key to continue.");
+    refresh();
     getch();
 }
 
@@ -143,7 +150,7 @@ void helpPrint() {
 }
 
 Tel *add(Tel *head) {
-    char name[30], tel[20], memo[40];
+    char name[30] = {0}, tel[20] = {0}, memo[40] = {0};
     printw("name: ");
     scanw(" %s", name);
     printw("tel: ");
@@ -151,6 +158,12 @@ Tel *add(Tel *head) {
     printw("memo: ");
     scanw(" %s", memo);
     refresh();
+    if (strlen(name) == 0 || strlen(tel) == 0) {
+        printw("\nNo name or tel entered.\n\npress any key to continue.");
+        getch();
+        werase(stdscr);
+        return head;
+    }
 
     printw("\n%s %s %s\n\nadd?[Y/N] ", name, tel, memo);
     int c = getch();
@@ -181,10 +194,15 @@ void save(struct Tel *head) {
 
 //리스트에서 삭제
 Tel *delete(struct Tel *head) {
-    char key[40];
+    char key[40] = {0};
     wprintw(stdscr, "please enter key: ");
     wscanw(stdscr, " %s", key);
-
+    if (strlen(key) == 0) {
+        wprintw(stdscr, "\nNo key entered.\n\npress any key to continue.");
+        getch();
+        werase(stdscr);
+        return head;
+    }
     struct Tel *p = head;
     int n = 1, i = 0, tmep[MAX] = {0};
     //key 값이 포함된 노드 찾기
@@ -200,28 +218,38 @@ Tel *delete(struct Tel *head) {
     //key 값이 없으면 no match found 출력
     if (n == 1) {
         printw("\nno match found.\n");
+        refresh();
+        printw("\n\npress any key to continue.");
+        getch();
         return head;
     }
     printw("which one? ");
     refresh();
     char num[10];
     i = 0;
-    scanw(" %s", num);
+    scanw("%s", num);
     //입력이 숫자가 아니거나 1~n-1 사이의 숫자가 아니면 wrong input 출력
     do {
-        if (!isdigit(num[i]) || num[i] - '0' > n - 1 || num[i] - '0' < 1 || num[i] == '\0') {
-            printw("\nwrong input.\n");
+        if (!isdigit(num[i]) || num[i] == '\0') {
+            printw("\nNot number.\n");
             printw("\ndelete canceled.\n\npress any key to continue.");
             getch();
             return head;
         }
         i++;
     } while (num[i] != '\0');
-    n = atoi(num);      //삭제할 노드의 인덱스
-    n = tmep[n-1];
+
+    int k = atoi(num);      //삭제할 노드의 인덱스
+    if (k < 1 || k >= n) {
+        printw("\nWrong input.\n");
+        printw("\ndelete canceled.\n\npress any key to continue.");
+        getch();
+        return head;
+    }
+    k = tmep[k-1];
     p = head;
     //삭제할 노드까지 이동
-    for (int j = 0; j < n; ++j)
+    for (int j = 0; j < k; ++j)
         p = p->next;
     //삭제할 노드가 head 노드이면 head를 다음 노드로 변경
     if (p == head) {
