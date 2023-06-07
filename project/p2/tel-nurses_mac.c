@@ -5,12 +5,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ncurses.h>
 #include <ctype.h>
-#include <ncursesw/ncurses.h>
 
 #define MAX 1024
-#define data "./data.txt"
-#define help "./help.txt"
+#define data "/Users/gimdong-yun/Desktop/SynologyDrive/F/ShortCut/Uni/2023/1학기/C프로그래밍2/C2/project/p2/data.txt"
+#define help "/Users/gimdong-yun/Desktop/SynologyDrive/F/ShortCut/Uni/2023/1학기/C프로그래밍2/C2/project/p2/help.txt"
 
 char *menu[] = {"help", "list", "search", "add", "delete", "exit"};
 
