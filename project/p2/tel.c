@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <ncurses.h>
+#include <locale.h>
 
 #define MAX 1024
 #define data "./data.txt"
@@ -270,6 +271,7 @@ Tel *delete(struct Tel *head) {
 }
 
 int main(void) {
+    setlocale(LC_CTYPE, "ko_KR.utf-8");
     struct Tel *head = NULL;
     head = init(head);
 
