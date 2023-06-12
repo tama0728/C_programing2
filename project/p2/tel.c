@@ -115,7 +115,7 @@ void printAll(Tel *head) {
     mvwprintw(stdscr, 0, 0, "%3s|%-20s|%-20s|%s", "No", "Name", "Tel", "Memo");
     //리스트의 끝까지 이동하면서 출력
     while (p != NULL) {
-        mvwprintw(stdscr, n, 0, "%3s|%-20s|%-20s|%s", n, p->name, p->tel, p->memo);
+        mvwprintw(stdscr, n, 0, "%3d|%-20s|%-20s|%s", n, p->name, p->tel, p->memo);
 
         p = p->next;
         n++;
@@ -142,7 +142,7 @@ void searchTel(struct Tel *head){
     while (p != NULL) {
         //name, tel, memo에 key 값이 포함되어 있으면 출력
         if (strstr(p->name, key) != NULL || strstr(p->tel, key) != NULL || strstr(p->memo, key) != NULL) {
-            mvprintw(n, 0,"%3s|%-20s|%-20s|%s",n, p->name, p->tel, p->memo);
+            mvprintw(n, 0,"%3d|%-20s|%-20s|%s",n, p->name, p->tel, p->memo);
             n++;
         }
         p = p->next;
@@ -216,7 +216,7 @@ Tel *delete(struct Tel *head) {
     //key 값이 포함된 노드 찾기
     while (p != NULL) {
         if (strstr(p->name, key) != NULL || strstr(p->tel, key) != NULL || strstr(p->memo, key) != NULL) {
-            printw("%3s|%-20s|%-20s|%s\n", n, p->name, p->tel, p->memo);
+            printw("%3d|%-20s|%-20s|%s\n", n, p->name, p->tel, p->memo);
             tmep[n-1] = i;      //key 값이 포함된 노드의 인덱스 저장
             n++;
         }
