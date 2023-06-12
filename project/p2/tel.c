@@ -6,7 +6,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ncurses.h>
-#include <ncurses/ncurses.h>
+#include <ncursesw/ncurses.h>
 #include <ctype.h>
 
 #define MAX 1024
