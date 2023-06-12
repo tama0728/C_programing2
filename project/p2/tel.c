@@ -277,6 +277,7 @@ Tel *delete(struct Tel *head) {
 }
 
 int main(void) {
+    setlocale(LC_CTYPE, "ko_KR.utf-8");
     struct Tel *head = NULL;
     head = init(head);
 
