@@ -6,7 +6,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include <ncursesw/ncurses.h>
+#include <ncurses.h>
 #include <locale.h>
 
 #define MAX 1024
@@ -30,6 +30,23 @@ void allFree(Tel *head) {
         free(p);
         p = q;
     }
+}
+//help.txt 출력
+void helpPrint() {
+    FILE *fp =  fopen(help, "r");
+    if (fp == NULL) {
+        printf("파일을 열 수 없습니다.\n");
+        exit(1);
+    }
+    int x, y;
+    getmaxyx(stdscr, y, x);
+    char buf[MAX];
+    int i = 0;
+    while (fgets(buf, MAX, fp) != NULL)
+        mvprintw(i++, 0, "%s", buf);
+    fclose(fp);
+    getch();
+    werase(stdscr);
 }
 
 Tel *firstAdd(Tel *head, char *name, char *tel, char *memo){
@@ -95,10 +112,10 @@ Tel *init(Tel *head) {
 void printAll(Tel *head) {
     Tel *p = head;
     int n = 1, j, max = 0;
-    mvwprintw(stdscr, 0, 0, "%3s  %-10s %-15s\t%s", "No", "Name", "Tel", "Memo");
+    mvwprintw(stdscr, 0, 0, "%3s  |%-10s |%-15s    |%s", "No", "Name", "Tel", "Memo");
     //리스트의 끝까지 이동하면서 출력
     while (p != NULL) {
-        mvwprintw(stdscr, n, 0, "%3d  %-10s %-15s\t%s", n, p->name, p->tel, p->memo);
+        mvwprintw(stdscr, n, 0, "%3d  |%-10s |%-15s    |%s", n, p->name, p->tel, p->memo);
 
         p = p->next;
         n++;
@@ -125,7 +142,7 @@ void searchTel(struct Tel *head){
     while (p != NULL) {
         //name, tel, memo에 key 값이 포함되어 있으면 출력
         if (strstr(p->name, key) != NULL || strstr(p->tel, key) != NULL || strstr(p->memo, key) != NULL) {
-            mvprintw(n, 0,"%3d  %-10s %-15s\t%s\n",n, p->name, p->tel, p->memo);
+            mvprintw(n, 0,"%3d  |%-10s |%-15s    |%s",n, p->name, p->tel, p->memo);
             n++;
         }
         p = p->next;
@@ -137,17 +154,6 @@ void searchTel(struct Tel *head){
         mvprintw(n+1, 0, "match found.\n\npress any key to continue.");
     refresh();
     getch();
-}
-
-void helpPrint() {
-    FILE *fp =  fopen(help, "r");
-    char buf[MAX];
-    int i = 0;
-    while (fgets(buf, MAX, fp) != NULL)
-        mvprintw(i++, 0, "%s", buf);
-    fclose(fp);
-    getch();
-    werase(stdscr);
 }
 
 Tel *add(Tel *head) {
@@ -210,7 +216,7 @@ Tel *delete(struct Tel *head) {
     //key 값이 포함된 노드 찾기
     while (p != NULL) {
         if (strstr(p->name, key) != NULL || strstr(p->tel, key) != NULL || strstr(p->memo, key) != NULL) {
-            printw("%d %s %s %s\n", n, p->name, p->tel, p->memo);
+            printw("%3d  |%-10s |%-15s    |%s\n", n, p->name, p->tel, p->memo);
             tmep[n-1] = i;      //key 값이 포함된 노드의 인덱스 저장
             n++;
         }
@@ -271,7 +277,6 @@ Tel *delete(struct Tel *head) {
 }
 
 int main(void) {
-    setlocale(LC_CTYPE, "ko_KR.utf-8");
     struct Tel *head = NULL;
     head = init(head);
 
@@ -293,7 +298,7 @@ int main(void) {
     int choice, highlight = 0, max = sizeof(menu)/ sizeof(menu[0]);
 
     while (1){
-        mvwprintw(menuwin, 1, 1, "전화번호부");
+        mvwprintw(menuwin, 1, 1, "telbook");
         box(menuwin, 0, 0);
         for (int i = 0; i < max; ++i) {
             if (i == highlight)
@@ -314,6 +319,10 @@ int main(void) {
                     break;
                 highlight++;
                 break;
+            case 'q':
+                endwin();
+                save(head);
+                return 0;
             default:
                 break;
         }
