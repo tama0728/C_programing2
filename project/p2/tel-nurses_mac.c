@@ -275,6 +275,7 @@ Tel *delete(struct Tel *head) {
     return head;
 }
 
+
 int main(void) {
     struct Tel *head = NULL;
     head = init(head);
