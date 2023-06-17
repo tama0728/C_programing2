@@ -60,3 +60,6 @@ target_link_libraries(project_p2_tel ${CURSES_LIBRARIES})
 target_link_libraries(project_p2_tel-nurses_mac ${CURSES_LIBRARIES})
 
 
+
+add_executable(2022-final_5 2022-final/5.c)
+add_executable(2022-final_6 2022-final/6.c)
